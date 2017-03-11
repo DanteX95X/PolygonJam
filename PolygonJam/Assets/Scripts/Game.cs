@@ -15,8 +15,10 @@ public class Game : MonoBehaviour
 
 
 	List<GameObject> borders = new List<GameObject>();
-	List<GameObject> answers = new List<GameObject>();
+	List<Answer> answers = new List<Answer>();
 	GameObject player = null;
+
+	int properAnswerIndex = -1;
 
 	void Start ()
 	{
@@ -42,19 +44,36 @@ public class Game : MonoBehaviour
 	
 	void Update ()
 	{
-		if (Input.GetKey(KeyCode.Space))
+		if (Input.GetKeyUp(KeyCode.Space))
 			NextQuestion();
+
+		for(int i = 0; i < answers.Count; ++i)
+		{
+			if(answers[i].IsChosen)
+			{
+				if (i == properAnswerIndex)
+					Debug.Log("Git");
+				else
+					Debug.Log("Zjebałeś");
+
+				NextQuestion();
+			}
+		}
 	}
 
 	void NextQuestion()
 	{
-		foreach(GameObject obj in answers)
-			Destroy(obj);
+		foreach(Answer obj in answers)
+			Destroy(obj.gameObject);
+		answers = new List<Answer>();
 
-		answers.Add(Instantiate(answer, RandomPosition(), transform.rotation) as GameObject);
+		answers.Add(Instantiate(answer, RandomPosition(), transform.rotation).GetComponent<Answer>());
+		answers.Add(Instantiate(answer, RandomPosition(), transform.rotation).GetComponent<Answer>());
+
+		properAnswerIndex = 0;
 	}
 
-	Vector3 RandomPosition()
+	public Vector3 RandomPosition()
 	{
 		Vector3 position;
 		do

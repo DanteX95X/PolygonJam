@@ -19,7 +19,6 @@ public class Player : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
 	{
-		Debug.Log(Input.GetAxis("Horizontal") + " " + Input.GetAxis("Vertical"));
 		body.velocity += new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical")).normalized * Time.deltaTime * speed;
 	}
 
