@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class SznukMovement : MonoBehaviour {
 
@@ -52,7 +53,6 @@ public class SznukMovement : MonoBehaviour {
         rb.velocity = new Vector2(0, missileSpeed);
         rb.constraints = RigidbodyConstraints2D.FreezePositionX;
 
-		GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Game>().PlayAudio(4);
 	}
 
     public void TakeDamage() {
@@ -65,14 +65,19 @@ public class SznukMovement : MonoBehaviour {
             renderer.material = lowHp;
         }
 
-        if (0 == hp)
-            Destroy(gameObject);
+		if (0 == hp)
+		{
+			GetComponent<AudioSource>().Play();
+			SceneManager.LoadScene("Game");
+			Destroy(gameObject);
+		}
     }
 
     private void OnCollisionEnter2D(Collision2D collision) {
 		if ("Fireball" == collision.gameObject.name)
 		{
 			TakeDamage();
+			GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Game>().PlayAudio(3);
 		}
     }
 }

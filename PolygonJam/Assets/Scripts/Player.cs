@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
@@ -67,8 +68,12 @@ public class Player : MonoBehaviour
             txt.text = "HP " + hp;
         }
 
-        if (0 == hp)
-            Destroy(gameObject);
+		if (0 == hp)
+		{
+			GetComponent<AudioSource>().Play();
+			SceneManager.LoadScene("Game");
+			Destroy(gameObject);
+		}
 	}
 
     void Shoot() 
