@@ -450,6 +450,16 @@ Prefab:
       propertyPath: fireballMat
       value: 
       objectReference: {fileID: 2100000, guid: 73f3426494072b9448116fd5fb5a4549, type: 2}
+    - target: {fileID: 114033663037116418, guid: afabf2b9d7ad8e9448e361323bd21052,
+        type: 2}
+      propertyPath: chargedMat
+      value: 
+      objectReference: {fileID: 2100000, guid: 3c44a3ef8a2d0b444b8f90a3fca7d67e, type: 2}
+    - target: {fileID: 114033663037116418, guid: afabf2b9d7ad8e9448e361323bd21052,
+        type: 2}
+      propertyPath: unchargedMat
+      value: 
+      objectReference: {fileID: 2100000, guid: 202a0c869d148bc4386d9c3dcf210242, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: afabf2b9d7ad8e9448e361323bd21052, type: 2}
   m_IsPrefabParent: 0
