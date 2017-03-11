@@ -132,4 +132,4 @@ MonoBehaviour:
   missileSpeed: 4
   cooldown: 0.5
   hp: 3
-  lowHp: {fileID: 0}
+  lowHp: {fileID: 2100000, guid: 05dcdf4e07b2c8f4091a0b65fc1685b3, type: 2}

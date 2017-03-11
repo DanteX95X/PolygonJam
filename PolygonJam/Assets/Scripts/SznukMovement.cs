@@ -9,7 +9,7 @@ public class SznukMovement : MonoBehaviour {
     public float speed = 2;
     public float missileSpeed = 4;
     public float cooldown = 1;
-    public int hp = 100;
+    public int hp = 3;
     public Material lowHp;
 
     float startPos;
@@ -57,7 +57,7 @@ public class SznukMovement : MonoBehaviour {
         transform.localScale = new Vector3(0.9f * transform.localScale.x, transform.localScale.y, transform.localScale.z);
         hp -= 1;
 
-        if (hp < 10) {
+        if (hp < 2) {
             transform.localScale = new Vector3(3, transform.localScale.y, transform.localScale.z);
             Renderer renderer = GetComponent<Renderer>();
             renderer.material = lowHp;
