@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
@@ -34,6 +35,13 @@ public class Player : MonoBehaviour
 	{
         if ("Sznukball" == collision.gameObject.name)
             hp--;
+
+        GameObject HPText = GameObject.FindGameObjectWithTag("HP Text");
+        if (HPText) {
+            Text txt = HPText.GetComponent<Text>();
+            txt.text = "HP " + hp;
+        }
+
         if (0 == hp)
             Destroy(gameObject);
 	}
