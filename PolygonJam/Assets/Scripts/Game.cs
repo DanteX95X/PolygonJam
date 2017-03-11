@@ -14,6 +14,9 @@ public class Game : MonoBehaviour
 	[SerializeField]
 	GameObject answer = null;
 
+	[SerializeField]
+	List<AudioClip> sounds = null;
+
 
 	List<GameObject> borders = new List<GameObject>();
 	List<Answer> answers = new List<Answer>();
@@ -24,8 +27,12 @@ public class Game : MonoBehaviour
 	bool isShaking = false;
 	Vector3 previousPosition;
 
+	AudioSource audio = null;
+
 	void Start ()
 	{
+		audio = GetComponent<AudioSource>();
+
 		previousPosition = transform.position;
 		player = GameObject.FindGameObjectWithTag("Player");
 
@@ -47,6 +54,7 @@ public class Game : MonoBehaviour
 		}
 
 		NextQuestion();
+		PlayAudio(5);
 	}
 	
 	void Update ()
@@ -64,13 +72,15 @@ public class Game : MonoBehaviour
 				if (i == properAnswerIndex)
 				{
 					Debug.Log("Git");
-					player.GetComponent<Player>().HasFireball = true;	
+					player.GetComponent<Player>().HasFireball = true;
+					PlayAudio(1);
 				}
 				else
 				{
 					Debug.Log("Zjebałeś");
 					StartCoroutine(ShakeScreen());
 					player.GetComponent<Rigidbody2D>().AddForce(new Vector2(Random.Range(-1.0f, 1.0f), Random.Range(-1.0f, 1.0f)).normalized * 1000);
+					PlayAudio(0);
 				}
 
 				NextQuestion();
@@ -113,5 +123,11 @@ public class Game : MonoBehaviour
 		isShaking = true;
 		yield return new WaitForSeconds(0.2f);
 		isShaking = false;
+	}
+
+	public void PlayAudio(int index)
+	{
+		audio.clip = sounds[index];
+		audio.Play();
 	}
 }

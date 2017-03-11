@@ -55,8 +55,11 @@ public class Player : MonoBehaviour
 
 	void OnCollisionEnter2D(Collision2D collision)
 	{
-        if ("Sznukball" == collision.gameObject.name)
-            hp--;
+		if ("Sznukball" == collision.gameObject.name)
+		{
+			hp--;
+			GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Game>().PlayAudio(2);
+		}
 
         GameObject HPText = GameObject.FindGameObjectWithTag("HP Text");
         if (HPText) {
@@ -84,5 +87,7 @@ public class Player : MonoBehaviour
         missile.transform.position = new Vector3(transform.position.x, transform.position.y - 0.5f, 0);
         rb.velocity = new Vector2(0, -missileSpeed);
         rb.constraints = RigidbodyConstraints2D.FreezePositionX;
-    }
+
+		GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Game>().PlayAudio(4);
+	}
 }

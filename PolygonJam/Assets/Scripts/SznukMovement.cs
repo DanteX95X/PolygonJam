@@ -51,7 +51,9 @@ public class SznukMovement : MonoBehaviour {
         missile.transform.position = new Vector3(transform.position.x, transform.position.y + 0.5f, 0);
         rb.velocity = new Vector2(0, missileSpeed);
         rb.constraints = RigidbodyConstraints2D.FreezePositionX;
-    }
+
+		GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Game>().PlayAudio(4);
+	}
 
     public void TakeDamage() {
         transform.localScale = new Vector3(0.9f * transform.localScale.x, transform.localScale.y, transform.localScale.z);
@@ -68,7 +70,9 @@ public class SznukMovement : MonoBehaviour {
     }
 
     private void OnCollisionEnter2D(Collision2D collision) {
-        if ("Fireball" == collision.gameObject.name)
-            TakeDamage();
+		if ("Fireball" == collision.gameObject.name)
+		{
+			TakeDamage();
+		}
     }
 }
