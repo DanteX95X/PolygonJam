@@ -21,8 +21,12 @@ public class Game : MonoBehaviour
 
 	int properAnswerIndex = -1;
 
+	bool isShaking = false;
+	Vector3 previousPosition;
+
 	void Start ()
 	{
+		previousPosition = transform.position;
 		player = GameObject.FindGameObjectWithTag("Player");
 
 		borders.Add(Instantiate(border, new Vector3(0, Mathf.Ceil(gridSize.y/2+1), 0), transform.rotation) as GameObject);
@@ -47,6 +51,12 @@ public class Game : MonoBehaviour
 	
 	void Update ()
 	{
+		if(isShaking)
+		{
+			transform.position = previousPosition;
+			transform.position += new Vector3(Random.Range(-0.1f, 0.1f), Random.Range(-0.1f, 0.1f), Random.Range(-0.1f, 0.1f));
+		}
+
 		for(int i = 0; i < answers.Count; ++i)
 		{
 			if(answers[i].IsChosen)
@@ -59,6 +69,7 @@ public class Game : MonoBehaviour
 				else
 				{
 					Debug.Log("Zjebałeś");
+					StartCoroutine(ShakeScreen());
 					player.GetComponent<Rigidbody2D>().AddForce(new Vector2(Random.Range(-1.0f, 1.0f), Random.Range(-1.0f, 1.0f)).normalized * 1000);
 				}
 
@@ -95,5 +106,12 @@ public class Game : MonoBehaviour
 		}
 		while (Mathf.Abs(position.x - player.transform.position.x) < 1 || Mathf.Abs(position.y - player.transform.position.y) < 1);
 		return position;
+	}
+
+	IEnumerator ShakeScreen()
+	{
+		isShaking = true;
+		yield return new WaitForSeconds(0.2f);
+		isShaking = false;
 	}
 }
