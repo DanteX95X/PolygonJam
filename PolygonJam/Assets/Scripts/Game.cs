@@ -14,20 +14,20 @@ public class Game : MonoBehaviour
 
 	void Start ()
 	{
-		borders.Add(Instantiate(border, new Vector3(0, Mathf.Ceil(gridSize.y/2), 0), transform.rotation) as GameObject);
-		borders.Add(Instantiate(border, new Vector3(0, -Mathf.Ceil(gridSize.y/2), 0), transform.rotation) as GameObject);
-		borders.Add(Instantiate(border, new Vector3(Mathf.Ceil(gridSize.x / 2), 0, 0), transform.rotation) as GameObject);
-		borders.Add(Instantiate(border, new Vector3(-Mathf.Ceil(gridSize.x / 2), 0, 0), transform.rotation) as GameObject);
+		borders.Add(Instantiate(border, new Vector3(0, Mathf.Ceil(gridSize.y/2+1), 0), transform.rotation) as GameObject);
+		borders.Add(Instantiate(border, new Vector3(0, -Mathf.Ceil(gridSize.y/2+1), 0), transform.rotation) as GameObject);
+		borders.Add(Instantiate(border, new Vector3(Mathf.Ceil(gridSize.x / 2+1), 0, 0), transform.rotation) as GameObject);
+		borders.Add(Instantiate(border, new Vector3(-Mathf.Ceil(gridSize.x / 2+1), 0, 0), transform.rotation) as GameObject);
 
 		for(int i = 0; i < borders.Count; ++i)
 		{
 			if(i < 2)
 			{
-				borders[i].transform.localScale = new Vector3(gridSize.x, 1, 1);
+				borders[i].transform.localScale = new Vector3(gridSize.x+1, 1, 1);
 			}
 			else
 			{
-				borders[i].transform.localScale = new Vector3(1, gridSize.y, 1);
+				borders[i].transform.localScale = new Vector3(1, gridSize.y+1, 1);
 			}
 		}
 	}

@@ -20,7 +20,7 @@ public class Player : MonoBehaviour
 	void Update ()
 	{
 		Debug.Log(Input.GetAxis("Horizontal") + " " + Input.GetAxis("Vertical"));
-		body.velocity += new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical")) * Time.deltaTime * speed;
+		body.velocity += new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical")).normalized * Time.deltaTime * speed;
 	}
 
 	void OnCollisionEnter2D(Collision2D collision)
