@@ -24,8 +24,10 @@ public class SznukMovement : MonoBehaviour {
 
     // Update is called once per frame
     void Update() {
-        if (Math.Abs(transform.position.x - startPos) > moveRange / 2)
-            direction *= -1;
+        if (transform.position.x - startPos > moveRange / 2)
+            direction = -1;
+        if (transform.position.x - startPos < -moveRange / 2)
+            direction = 1;
 
         shootDelta += Time.deltaTime;
         if (shootDelta > cooldown) {
