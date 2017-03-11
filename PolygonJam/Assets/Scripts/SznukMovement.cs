@@ -38,12 +38,17 @@ public class SznukMovement : MonoBehaviour {
 
     void Shoot() {
         GameObject missile = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-        Rigidbody rb = missile.AddComponent<Rigidbody>();
+        DestroyImmediate(missile.GetComponent<SphereCollider>());
+        Rigidbody2D rb = missile.AddComponent<Rigidbody2D>();
+        missile.AddComponent<CircleCollider2D>();
+        missile.AddComponent<Missile>();
+
+        missile.name = "Sznukball";
         missile.layer = 9;
         missile.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
         missile.transform.position = new Vector3(transform.position.x, transform.position.y + 0.5f, 0);
-        rb.velocity = new Vector3(0, missileSpeed, 0);
-        
+        rb.velocity = new Vector2(0, missileSpeed);
+        rb.constraints = RigidbodyConstraints2D.FreezePositionX;
     }
 
     public void TakeDamage() {
@@ -58,5 +63,10 @@ public class SznukMovement : MonoBehaviour {
 
         if (0 == hp)
             Destroy(gameObject);
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision) {
+        if ("Fireball" == collision.gameObject.name)
+            TakeDamage();
     }
 }

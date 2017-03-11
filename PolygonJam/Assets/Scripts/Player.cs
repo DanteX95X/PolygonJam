@@ -34,15 +34,20 @@ public class Player : MonoBehaviour
 
 	}
 
-    void Shoot() {
-        hasFireball = false;
+    void Shoot() 
+    {
+        //hasFireball = false;
         GameObject missile = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-        Rigidbody rb = missile.AddComponent<Rigidbody>();
+        DestroyImmediate(missile.GetComponent<SphereCollider>());
+        Rigidbody2D rb = missile.AddComponent<Rigidbody2D>();
+        missile.AddComponent<CircleCollider2D>();
+        missile.AddComponent<Missile>();
+        
         missile.name = "Fireball";
         missile.layer = 9;
         missile.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
         missile.transform.position = new Vector3(transform.position.x, transform.position.y - 0.5f, 0);
-        rb.velocity = new Vector3(0, -missileSpeed, 0);
-        rb.constraints = RigidbodyConstraints.FreezePositionX;
+        rb.velocity = new Vector2(0, -missileSpeed);
+        rb.constraints = RigidbodyConstraints2D.FreezePositionX;
     }
 }
