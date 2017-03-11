@@ -13,6 +13,7 @@ public class Player : MonoBehaviour
     float missileSpeed = 5;
 
     public bool hasFireball = true;
+    int hp = 3;
 
 	// Use this for initialization
 	void Start ()
@@ -31,7 +32,10 @@ public class Player : MonoBehaviour
 
 	void OnCollisionEnter2D(Collision2D collision)
 	{
-
+        if ("Sznukball" == collision.gameObject.name)
+            hp--;
+        if (0 == hp)
+            Destroy(gameObject);
 	}
 
     void Shoot() 
