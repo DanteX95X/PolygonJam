@@ -6,9 +6,13 @@ public class Player : MonoBehaviour
 {
 	Rigidbody2D body = null;
 
-	[SerializeField]
-	float speed = 5;
+    [SerializeField]
+    float speed = 5;
 
+    [SerializeField]
+    float missileSpeed = 5;
+
+    public bool hasFireball = true;
 
 	// Use this for initialization
 	void Start ()
@@ -20,10 +24,25 @@ public class Player : MonoBehaviour
 	void Update ()
 	{
 		body.velocity += new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical")).normalized * Time.deltaTime * speed;
+
+        if (Input.GetKeyDown(KeyCode.Space) && hasFireball)
+            Shoot();
 	}
 
 	void OnCollisionEnter2D(Collision2D collision)
 	{
 
 	}
+
+    void Shoot() {
+        hasFireball = false;
+        GameObject missile = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+        Rigidbody rb = missile.AddComponent<Rigidbody>();
+        missile.name = "Fireball";
+        missile.layer = 9;
+        missile.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+        missile.transform.position = new Vector3(transform.position.x, transform.position.y - 0.5f, 0);
+        rb.velocity = new Vector3(0, -missileSpeed, 0);
+        rb.constraints = RigidbodyConstraints.FreezePositionX;
+    }
 }

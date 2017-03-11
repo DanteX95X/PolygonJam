@@ -10,6 +10,8 @@ public class SznukMovement : MonoBehaviour {
     public float missileSpeed = 4;
     public float cooldown = 1;
     public int hp = 100;
+    public Material lowHp;
+
     float startPos;
     float direction = 1;
     float shootDelta = 0;
@@ -29,7 +31,6 @@ public class SznukMovement : MonoBehaviour {
         if (shootDelta > cooldown) {
             shootDelta = 0;
             Shoot();
-            TakeDamage();
         }
 
         transform.Translate(direction * speed * Vector3.right * Time.deltaTime);
@@ -48,6 +49,12 @@ public class SznukMovement : MonoBehaviour {
     public void TakeDamage() {
         transform.localScale = new Vector3(0.9f * transform.localScale.x, transform.localScale.y, transform.localScale.z);
         hp -= 1;
+
+        if (hp < 10) {
+            transform.localScale = new Vector3(3, transform.localScale.y, transform.localScale.z);
+            Renderer renderer = GetComponent<Renderer>();
+            renderer.material = lowHp;
+        }
 
         if (0 == hp)
             Destroy(gameObject);
