@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Game : MonoBehaviour
 {
@@ -40,13 +41,12 @@ public class Game : MonoBehaviour
 				borders[i].transform.localScale = new Vector3(1, gridSize.y+1, 1);
 			}
 		}
+
+		NextQuestion();
 	}
 	
 	void Update ()
 	{
-		if (Input.GetKeyUp(KeyCode.Space))
-			NextQuestion();
-
 		for(int i = 0; i < answers.Count; ++i)
 		{
 			if(answers[i].IsChosen)
@@ -70,7 +70,14 @@ public class Game : MonoBehaviour
 		answers.Add(Instantiate(answer, RandomPosition(), transform.rotation).GetComponent<Answer>());
 		answers.Add(Instantiate(answer, RandomPosition(), transform.rotation).GetComponent<Answer>());
 
-		properAnswerIndex = 0;
+		answers[0].GetComponent<Renderer>().material.color = Color.red;
+		answers[1].GetComponent<Renderer>().material.color = Color.green;
+
+		int questionIndex = Random.Range(0, 100000);
+
+		questionIndex %= Question.questions.Count;
+		GameObject.FindGameObjectWithTag("Respawn").GetComponent<Text>().text = Question.questions[questionIndex].QuestionText + "?";
+		properAnswerIndex = Question.questions[questionIndex].AnswerIndex;
 	}
 
 	public Vector3 RandomPosition()
