@@ -52,9 +52,15 @@ public class Game : MonoBehaviour
 			if(answers[i].IsChosen)
 			{
 				if (i == properAnswerIndex)
+				{
 					Debug.Log("Git");
+					player.GetComponent<Player>().HasFireball = true;	
+				}
 				else
+				{
 					Debug.Log("Zjebałeś");
+					player.GetComponent<Rigidbody2D>().AddForce(new Vector2(Random.Range(-1.0f, 1.0f), Random.Range(-1.0f, 1.0f)).normalized * 1000);
+				}
 
 				NextQuestion();
 			}

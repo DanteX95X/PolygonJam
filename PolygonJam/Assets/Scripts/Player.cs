@@ -16,8 +16,14 @@ public class Player : MonoBehaviour
     [SerializeField]
     Material fireballMat;
 
-    public bool hasFireball = true;
+    bool hasFireball = false;
     int hp = 3;
+
+	public bool HasFireball
+	{
+		get { return hasFireball; }
+		set { hasFireball = value; }
+	}
 
 	// Use this for initialization
 	void Start ()
@@ -51,7 +57,7 @@ public class Player : MonoBehaviour
 
     void Shoot() 
     {
-        //hasFireball = false;
+        hasFireball = false;
         GameObject missile = GameObject.CreatePrimitive(PrimitiveType.Sphere);
         DestroyImmediate(missile.GetComponent<SphereCollider>());
         Rigidbody2D rb = missile.AddComponent<Rigidbody2D>();
