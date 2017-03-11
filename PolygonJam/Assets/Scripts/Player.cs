@@ -13,6 +13,9 @@ public class Player : MonoBehaviour
     [SerializeField]
     float missileSpeed = 5;
 
+    [SerializeField]
+    Material fireballMat;
+
     public bool hasFireball = true;
     int hp = 3;
 
@@ -54,7 +57,8 @@ public class Player : MonoBehaviour
         Rigidbody2D rb = missile.AddComponent<Rigidbody2D>();
         missile.AddComponent<CircleCollider2D>();
         missile.AddComponent<Missile>();
-        
+        Renderer renderer = missile.GetComponent<Renderer>();
+        renderer.material = fireballMat;
         missile.name = "Fireball";
         missile.layer = 9;
         missile.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
