@@ -15,6 +15,10 @@ public class Player : MonoBehaviour
 
     [SerializeField]
     Material fireballMat;
+    [SerializeField]
+    Material chargedMat;
+    [SerializeField]
+    Material unchargedMat;
 
     bool hasFireball = false;
     int hp = 3;
@@ -30,11 +34,20 @@ public class Player : MonoBehaviour
 	{
 		body = GetComponent<Rigidbody2D>();
 	}
-	
-	// Update is called once per frame
-	void Update ()
-	{
-		body.velocity += new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical")).normalized * Time.deltaTime * speed;
+
+    // Update is called once per frame
+    void Update() {
+        body.velocity += new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical")).normalized * Time.deltaTime * speed;
+
+        if (hasFireball) {
+            Renderer renderer = GetComponent<Renderer>();
+            renderer.material = chargedMat;
+        }
+        else {
+            Renderer renderer = GetComponent<Renderer>();
+            renderer.material = unchargedMat;
+        }
+
 
         if (Input.GetKeyDown(KeyCode.Space) && hasFireball)
             Shoot();
