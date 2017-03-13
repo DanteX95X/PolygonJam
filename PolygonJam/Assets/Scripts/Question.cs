@@ -46,6 +46,7 @@ class Question
 		new Pair("Czy podeszwa buta podlega reklamacji", 1),
 		new Pair("Czy prostowanie keratynowe niszczy włosy", 1),
 		new Pair("Czy cycki mają kości", 0),
+        new Pair("Czy Zombi jest trzeźwy", 0)
 	};
 }
 
